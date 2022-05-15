@@ -1,0 +1,68 @@
+
+
+file = {
+    ((model_statement | enum_statement | skip_statement) ~ NEWLINE+)+
+}
+
+skip_statement = _{
+    ("generator" | "datasource") ~ identifier ~ "{" ~ NEWLINE+ ~
+		(!("}")~ ANY)* ~
+    "}"
+}
+
+enum_statement = {
+    enum_keyword ~ enum_name ~ "{" ~ NEWLINE+ ~
+    (enum_item ~ NEWLINE+)+ ~
+    "}"
+}
+
+
+model_statement = {
+    model_keyword  ~ model_name  ~ "{" ~ NEWLINE+ ~
+    (column_statement ~ NEWLINE+)* ~
+    (model_modifier  ~ NEWLINE+)* ~
+    "}"
+}
+
+column_statement = {
+    column_name  ~
+    column_type  ~
+    (column_modifier)*
+}
+
+
+model_modifier = _{ "@@" ~ (function | modifier_prop)}
+
+column_modifier = _{ "@" ~ (function | modifier_prop) }
+modifier_prop = { identifier ~ ("." ~ identifier)? }
+
+
+
+
+
+function = {func_name ~ "("~ (function | named_args | array_arg |  arg )*  ~ ")"}
+func_name = {identifier}
+named_args = {(named_arg ~ ", ")+ | named_arg}
+named_arg= { arg_name ~ ":"  ~ "[" ~ arg_value ~ "]"}
+arg_name = {identifier}
+arg_value = {identifier}
+array_arg ={ "[" ~ identifier ~ "]" }
+arg = { ("\""? ~ identifier ~ "\""?) | "\"\"" | NUMBER+}
+
+
+
+column_type = {identifier~array_type?~optional_mark?}
+array_type = {"[]"}
+optional_mark = {"?"}
+
+column_name = {identifier}
+
+model_name = {identifier}
+enum_name = {identifier}
+enum_item = {identifier}
+model_keyword = _{ "model" }
+enum_keyword = _{ "enum" }
+
+identifier  = @{  (ASCII_ALPHA | "_") ~ (ASCII_ALPHANUMERIC | "_")* }
+any_ascii = @{ ASCII+ }
+WHITESPACE = _{ " " | "\t" }

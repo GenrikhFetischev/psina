@@ -1,0 +1,4 @@
+/target
+.idea
+schema.prisma
+gql.generated.graphql
