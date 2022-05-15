@@ -1,5 +1,3 @@
-
-
 file = {
     ((model_statement | enum_statement | skip_statement) ~ NEWLINE+)+
 }
@@ -16,7 +14,6 @@ enum_statement = {
     "}"
 }
 
-
 model_statement = {
     model_keyword  ~ model_name  ~ "{" ~ NEWLINE+ ~
     (column_statement ~ NEWLINE+)* ~
@@ -30,15 +27,10 @@ column_statement = {
     (column_modifier)*
 }
 
-
 model_modifier = _{ "@@" ~ (function | modifier_prop)}
-
 column_modifier = _{ "@" ~ (function | modifier_prop) }
+
 modifier_prop = { identifier ~ ("." ~ identifier)? }
-
-
-
-
 
 function = {func_name ~ "("~ (function | named_args | array_arg |  arg )*  ~ ")"}
 func_name = {identifier}
