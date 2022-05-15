@@ -3,7 +3,7 @@ name = "psina"
 version = "0.1.0"
 edition = "2021"
 description = "Blazzzzingly fast graphql schema generator from prisma file"
-license = "UNLICENSED"
+license = "Artistic-2.0"
 
 [dependencies]
 pest = "2.1.3"
