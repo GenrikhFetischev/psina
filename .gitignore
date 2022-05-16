@@ -1,4 +1,4 @@
 /target
 .idea
 schema.prisma
-gql.generated.graphql
+schema.graphql
