@@ -1,8 +1,10 @@
 [package]
 name = "psina"
-version = "0.1.5"
+version = "0.1.7"
 edition = "2021"
 description = "Blazzzzingly fast graphql schema generator from prisma file"
+authors=["genrikhfetishchev@gmail.com"]
+homepage="https://github.com/GenrikhFetischev/psina"
 license = "Artistic-2.0"
 
 [dependencies]

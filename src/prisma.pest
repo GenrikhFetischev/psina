@@ -32,7 +32,7 @@ column_modifier = _{ "@" ~ (function | modifier_prop) }
 
 modifier_prop = { identifier ~ ("." ~ identifier)? }
 
-function = {func_name ~ "("~ (function | named_args | array_arg |  arg )*  ~ ")"}
+function = {func_name ~ "("~ (function | named_args | string_arg | array_arg  | arg )*  ~ ")"}
 func_name = {identifier}
 named_args = {(named_arg ~ ", ")+ | named_arg}
 named_arg= { arg_name ~ ":"  ~ "[" ~ arg_value ~ "]"}
@@ -40,14 +40,17 @@ arg_name = {identifier}
 arg_value = {identifier}
 array_arg ={ "[" ~ identifier ~ "]" }
 arg = { ("\""? ~ identifier ~ "\""?) | "\"\"" | NUMBER+}
+string_arg = { "\"" ~ (!("\"")~ ANY)*  ~ "\""}
 
 
 
 column_type = {identifier~array_type?~optional_mark?}
+column_name = {identifier}
+
+
 array_type = {"[]"}
 optional_mark = {"?"}
 
-column_name = {identifier}
 
 model_name = {identifier}
 enum_name = {identifier}
